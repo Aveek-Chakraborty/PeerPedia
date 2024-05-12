@@ -1,5 +1,6 @@
 'use server'
 
+import { createRoom } from "@/data-access/rooms";
 // import { createRoom } from "@/data-access/rooms";
 import { db } from "@/db";
 import { Room, room } from "@/db/schema";
@@ -15,12 +16,12 @@ export async function createRoomAction(roomData: Omit<Room, "id" | "userId">) {
     throw new Error("you must be logged in to create this room");
   }
 
-//   const room = await createRoom(roomData, session.user.id);
+  const room = await createRoom(roomData, session.user.id);
 
 //   revalidatePath("/browse");
 
 //   return room;
 
-await db.insert(room).values({...roomData, userId: session.user.id })
+
 revalidatePath("/")
 }
