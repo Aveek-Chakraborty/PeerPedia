@@ -1,12 +1,11 @@
 'use server'
 
 import { createRoom } from "@/data-access/rooms";
-// import { createRoom } from "@/data-access/rooms";
 import { db } from "@/db";
 import { Room, room } from "@/db/schema";
 import { getSession } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
-// import { revalidatePath } from "next/cache";
+
 
 export async function createRoomAction(roomData: Omit<Room, "id" | "userId">) {
   const session = await getSession();
@@ -18,9 +17,9 @@ export async function createRoomAction(roomData: Omit<Room, "id" | "userId">) {
 
   const room = await createRoom(roomData, session.user.id);
 
-//   revalidatePath("/browse");
+  // revalidatePath("/browse");
 
-//   return room;
+  return room;
 
 
 revalidatePath("/")

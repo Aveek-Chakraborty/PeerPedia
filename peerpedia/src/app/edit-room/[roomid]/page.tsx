@@ -1,10 +1,9 @@
 import React from 'react'
 import { EditRoomForm } from './edit-room-form'
 import { getRoom } from '@/data-access/rooms';
-import { useParams } from 'next/navigation';
 import { unstable_noStore } from 'next/cache';
 
-const CreateRoomPage = async ( {params,
+const EditRoomPage = async ( {params,
 }: {
   params: { roomid: string };
 }) => {
@@ -23,4 +22,4 @@ const CreateRoomPage = async ( {params,
   )
 }
 
-export default CreateRoomPage 
+export default EditRoomPage 

@@ -71,7 +71,7 @@ export function SearchBar() {
 
         {query.get("search") && (
           <Button
-            variant="link"
+            variant="outline"
             onClick={() => {
               form.setValue("search", "");
               router.push("/");
