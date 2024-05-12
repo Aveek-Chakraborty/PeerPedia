@@ -13,8 +13,19 @@ import { DeleteIcon, LogInIcon, LogOutIcon } from "lucide-react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { useState } from "react";
-
+import { deleteAccountAction } from "./actions";
 
 function AccountDropdown() {
   const session = useSession();
@@ -22,12 +33,35 @@ function AccountDropdown() {
 
   return (
     <>
-      
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently remove your
+              account and any data your have.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={async () => {
+                await deleteAccountAction();
+                signOut({ callbackUrl: "/" });
+              }}
+            >
+              Yes, delete my account
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant={"ghost"} className="h-15 ">
+          <Button variant={"ghost"} className="h-12">
             <Avatar className="mr-2">
               <AvatarImage src={session.data?.user?.image ?? ""} />
+              <AvatarFallback>CN</AvatarFallback>
             </Avatar>
 
             {session.data?.user?.name}
@@ -66,7 +100,7 @@ export function Header() {
       <div className="container mx-auto flex justify-between items-center">
         <Link
           href="/"
-          className="flex gap-2 items-center text-xl "
+          className="flex gap-2 items-center text-xl hover:text-blue-500"
         >
           <Image
             src="/icon.png"
@@ -80,11 +114,11 @@ export function Header() {
         <nav className="flex gap-8">
           {isLoggedIn && (
             <>
-              <Link className="dark:hover:text-blue-200" href="/browse">
+              <Link className="hover:text-blue-500" href="/browse">
                 Browse
               </Link>
 
-              <Link className="dark:hover:text-blue-200" href="/your-rooms">
+              <Link className="hover:hover:text-blue-500" href="/your-rooms">
                 Your Rooms
               </Link>
             </>
