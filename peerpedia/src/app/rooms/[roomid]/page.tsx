@@ -28,7 +28,7 @@ export default  async function RoomPage(props:{params : {roomid:string}}) {
         <div className="col-span-1 p-4 pl-2">
           <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4 flex flex-col gap-4">
             <h1 className="text-base">{room?.name}</h1>
-            {room.githubRepo && <Link href={`/${room.githubRepo}`} className='flex items-center gap-2 text-sm' target='_blank' rel='noopener noreferrer'><GithubIcon />Github Project</Link>}
+            {room.githubRepo && <Link href={room.githubRepo} className='flex items-center gap-2 text-sm' target='_blank' rel='noopener noreferrer'><GithubIcon />Github Project</Link>}
             <p className=" text-base text-gray-600">{room?.description}</p>
             <TagsList tags={splitTags(room.tags)} />
           </div>
