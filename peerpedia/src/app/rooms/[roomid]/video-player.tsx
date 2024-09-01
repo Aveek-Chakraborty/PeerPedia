@@ -65,7 +65,7 @@ export function PeerPediaVideo({ room }: { room: Room }) {
                 router.push("/");
               }}
             />
-            <CallParticipantsList onClose={() => undefined} />
+            <CallParticipantsList onClose={() => void} />
           </StreamCall>
         </StreamTheme>
       </StreamVideo>
